@@ -1,10 +1,3 @@
-
-
-
-# Node Creating class
-from numpy import delete
-
-
 class DoubleNode:
     def __init__(self, value=None, nextNode=None, prevNode=None):
         self.value=value
