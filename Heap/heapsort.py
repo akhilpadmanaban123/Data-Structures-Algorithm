@@ -10,8 +10,8 @@ def heapSort(arr):
         heapify(arr,i,0)
 
 def heapify(arr,n,i):
-    left= 2*i
-    right=2*i+1
+    left= 2*i+1
+    right=2*i+2
     largest= i
     
     if left<n and arr[left]>arr[i]:
@@ -26,7 +26,7 @@ def heapify(arr,n,i):
         
 
 def maxHeap(arr):
-    for i in range(len(arr)//2,0,-1):
+    for i in range(len(arr)//2,-1,-1):
         heapify(arr,len(arr),i)
 
 
