@@ -17,7 +17,7 @@ def heapify(arr,n,i):
     if left<n and arr[left]>arr[i]:
         largest=left
     
-    if right<n and arr[right]>arr[left]:
+    if right<n and arr[right]>arr[largest]:
         largest=right
     
     if largest!=i:
