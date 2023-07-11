@@ -1,3 +1,39 @@
+
+def dfsCheck(i, visited, helper):
+    visited[i]=True
+    helper[i]=True
+    
+    for j in adj[i]:
+        if helper[j]==True:
+            return True  # if its helper is true
+        if visited[j]==False and dfsCheck(j,visited, helper):
+            return True
+    
+    helper[i]=False  # when I backtrack marking it as false
+    return False
+    
+
+def CycleFinding(V, adj):
+    visited=[False]*V
+    helper=[False]*V
+    for i in range(V):
+        if visited[i]==False and dfsCheck(i,visited,helper): 
+            # if the nde is not visited or if there is a cycle , then yes
+            return True
+    return False
+            
+
+
+
+V=4
+adj=[[1],[2,3],[],[0]]
+if CycleFinding(V,adj):
+    print('Cycle is there')
+else:
+    print('No Cycle detected!')
+
+
+)__________________________________________________________
 class Graph:
     def __init__(self, v):
         self.v=v
