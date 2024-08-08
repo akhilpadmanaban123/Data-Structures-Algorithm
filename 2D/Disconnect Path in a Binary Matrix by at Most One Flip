@@ -1,0 +1,54 @@
+2556. Disconnect Path in a Binary Matrix by at Most One Flip
+
+grid:
+  1 1 1
+  1 0 0 
+  1 1 1
+
+dp1  ( from 0,0 to i,j )
+  0 0 0 0                                                                  0 0 0 0
+  0 1 0 0   -- >     if grid[i-1][j-1] is not 0, then find the path  -->   0 1 1 1
+  0 0 0 0                                                                  0 1 0 0 
+  0 0 0 0                                                                  0 1 1 1
+
+dp2 ( from 1,j to m-1,n-1 )
+
+  0 0 0 0                                                                 1 1 1 1 
+  0 0 0 0  -- >    if grid[i][j] is not 0, then find the path   -->       1 0 0 0 
+  0 0 1 0                                                                 1 1 1 0
+  0 0 0 0                                                                 0 0 0 0
+
+
+multiply both positions to see if it gets the target value. If yes, then that is true and can be broken
+class Solution:
+    def isPossibleToCutPath(self, grid: List[List[int]]) -> bool:
+        m,n = len(grid), len(grid[0])
+
+        dp1 = [[0]*(n+1) for _ in range(m+1)]
+
+        dp1[1][1] = 1  # starting position is not alterable
+        for row in range(1,m+1):
+            for col in range(1,n+1):
+                if grid[row-1][col-1]:
+                    dp1[row][col] += dp1[row-1][col]+dp1[row][col-1]
+
+        # from (i,j) to (m-1,n-1)
+        dp2 = [[0]*(n+1) for _ in range(m+1)]
+        dp2[-2][-2] = 1
+        for row in range(m-1,-1,-1):
+            for col in range(n-1,-1,-1):
+                if grid[row][col]:
+                    dp2[row][col] +=dp2[row+1][col]+dp2[row][col+1]
+
+        # number of paths from 0,0 to (m-1,n-1)
+        target = dp1[-1][-1]
+        for i in range(m):
+            for j in range(n):
+                if (i!=0 or j!=0) and (i!=m-1 or j!=n-1):
+                    if dp1[i+1][j+1] * dp2[i][j] == target:
+                        return True
+        return False
+
+
+
+        
