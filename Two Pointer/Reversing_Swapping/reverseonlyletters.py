@@ -1,0 +1,21 @@
+class Solution:
+    def reverseOnlyLetters(self, s: str) -> str:
+        left, right = 0, len(s)-1
+        s = list(s) # convert to list as string is immutable
+        while left<right:
+            if s[left].isalpha() and s[right].isalpha():
+                s[left],s[right] = s[right],s[left]
+                left+=1
+                right-=1
+            elif s[left].isalpha() and not s[right].isalpha():
+                right-=1
+            elif not s[left].isalpha() and s[right].isalpha():
+                left+=1
+            else:
+                left+=1
+                right-=1
+        return ''.join(s)
+
+
+# TC: O(n)
+# SC: O(n) - due to list conversion
